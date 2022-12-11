@@ -50,3 +50,100 @@ func CaseToCamel(name string) string {
 	return strings.Replace(name, " ", "", -1)
 }
 
+// WhereInString where in String
+func WhereInString(slices []string) string {
+	str := ""
+	if count := len(slices); count > 0 {
+		for i := 0; i < count; i++ {
+			str += "?,"
+		}
+		str = strings.Trim(str, ",")
+	}
+
+	return str
+}
+
+// WhereInStringValue where in String Value
+func WhereInStringValue(args []interface{}, slices []string) []interface{} {
+	if len(slices) <= 0 {
+		return args
+	}
+
+	for _, row := range slices {
+		args = append(args, row)
+	}
+
+	return args
+}
+
+// WhereInInt32 where in Int32
+func WhereInInt32(slices []int32) string {
+	str := ""
+	if count := len(slices); count > 0 {
+		for i := 0; i < count; i++ {
+			str += "?,"
+		}
+		str = strings.Trim(str, ",")
+	}
+
+	return str
+}
+
+// WhereInInt32Value where in Int32 Value
+func WhereInInt32Value(args []interface{}, slices []int32) []interface{} {
+	if len(slices) <= 0 {
+		return args
+	}
+
+	for _, row := range slices {
+		args = append(args, row)
+	}
+
+	return args
+}
+
+// RebindSql 占位符替换
+func RebindSql(dialect string, sqlstr *string) *string {
+	switch dialect {
+	case "mysql", "sqlite", "dm", "gbase", "clickhouse", "db2":
+		return sqlstr
+	}
+	strs := strings.Split(*sqlstr, "?")
+	if len(strs) < 1 {
+		return sqlstr
+	}
+	var sqlBuilder strings.Builder
+	sqlBuilder.WriteString(strs[0])
+	for i := 1; i < len(strs); i++ {
+		switch dialect {
+		case "postgres", "postgresql", "kingbase": //postgres,postgresql,kingbase
+			sqlBuilder.WriteString("$")
+			sqlBuilder.WriteString(strconv.Itoa(i))
+		case "mssql": //mssql
+			sqlBuilder.WriteString("@p")
+			sqlBuilder.WriteString(strconv.Itoa(i))
+		case "oracle", "shentong": //oracle,神通
+			sqlBuilder.WriteString(":")
+			sqlBuilder.WriteString(strconv.Itoa(i))
+		default: //其他情况,还是使用 ? | In other cases, or use  ?
+			sqlBuilder.WriteString("?")
+		}
+		sqlBuilder.WriteString(strs[i])
+	}
+	*sqlstr = sqlBuilder.String()
+	return sqlstr
+}
+
+// StringToSliceInt32 字符串转换为int切片
+func StringToSliceInt32(str string, split string) []int32 {
+	if str == "" {
+		return nil
+	}
+	a := strings.Split(str, split)
+	b := make([]int32, 0)
+	for _, row := range a {
+		c, _ := strconv.Atoi(row)
+		b = append(b, int32(c))
+	}
+	return b
+}

@@ -85,3 +85,16 @@ func RemoveIntSlice(slice []int, elem interface{}) []int {
 	}
 	return slice
 }
+
+// SliceToSqlString 字符串类型切片转SQL语句类型字符串
+func SliceToSqlString(slice []string) string {
+	var str string
+	for _, v := range slice {
+		if str == "" {
+			str = "'" + v + "'"
+		} else {
+			str = str + "," + "'" + v + "'"
+		}
+	}
+	return str
+}
