@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -146,4 +147,26 @@ func StringToSliceInt32(str string, split string) []int32 {
 		b = append(b, int32(c))
 	}
 	return b
+}
+
+// GetStringYear 获取字符串中包含的年份
+func GetStringYear(str string, len int) string {
+	years := make([]int, 0)
+	now := time.Now().Year()
+	for i := 0; i < len; i++ {
+		years = append(years, now-i)
+	}
+
+	var rsp int
+	for _, v := range years {
+		if strings.Contains(str, strconv.Itoa(v)) {
+			rsp = v
+			break
+		}
+	}
+
+	if rsp <= 0 {
+		return ""
+	}
+	return strconv.Itoa(rsp)
 }
