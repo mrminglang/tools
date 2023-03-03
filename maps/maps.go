@@ -1,37 +1,91 @@
 package maps
 
 import (
+	"errors"
+	"reflect"
 	"sort"
 )
 
-// SortKeyRise 升序
-func SortKeyRise(result map[string]interface{}) map[string]interface{} {
-	keys := make([]string, 0)
-	for key := range result {
-		keys = append(keys, key)
+/*
+以map的key(int\float\string)排序
+sortType = 0 正序
+sortType = 1 倒序
+eachMap      ->  待遍历的map
+eachFunc     ->  map遍历接收，入参应该符合map的key和value
+*/
+func SortMapKey(eachMap interface{}, eachFunc interface{}, sortType int) {
+	eachMapValue := reflect.ValueOf(eachMap)
+	eachFuncValue := reflect.ValueOf(eachFunc)
+	eachMapType := eachMapValue.Type()
+	eachFuncType := eachFuncValue.Type()
+	if eachMapValue.Kind() != reflect.Map {
+		panic(errors.New("ksort.eachMap Kind failed"))
+	}
+	if eachFuncValue.Kind() != reflect.Func {
+		panic(errors.New("ksort.eachFunc Kind failed"))
+	}
+	if eachFuncType.NumIn() != 2 {
+		panic(errors.New("ksort.eachFunc NumIn failed"))
+	}
+	if eachFuncType.In(0).Kind() != eachMapType.Key().Kind() {
+		panic(errors.New("ksort.eachFunc input parameter 1 type not equal of eachMap key"))
+	}
+	if eachFuncType.In(1).Kind() != eachMapType.Elem().Kind() {
+		panic(errors.New("ksort.eachFunc input parameter 2 type not equal of eachMap value"))
 	}
 
-	sort.Strings(keys)
-	rsp := make(map[string]interface{}, 0)
-	for _, k := range keys {
-		rsp[k] = result[k]
+	// 对key进行排序
+	// 获取排序后map的key和value，作为参数调用eachFunc即可
+	switch eachMapType.Key().Kind() {
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		keys := make([]int, 0)
+		keysMap := map[int]reflect.Value{}
+		for _, value := range eachMapValue.MapKeys() {
+			keys = append(keys, int(value.Int()))
+			keysMap[int(value.Int())] = value
+		}
+		if sortType == 1 {
+			sort.Sort(sort.Reverse(sort.IntSlice(keys)))
+		} else {
+			sort.Ints(keys)
+		}
+
+		for _, key := range keys {
+			eachFuncValue.Call([]reflect.Value{keysMap[key], eachMapValue.MapIndex(keysMap[key])})
+		}
+	case reflect.Float64, reflect.Float32:
+		keys := make([]float64, 0)
+		keysMap := map[float64]reflect.Value{}
+		for _, value := range eachMapValue.MapKeys() {
+			keys = append(keys, float64(value.Float()))
+			keysMap[float64(value.Float())] = value
+		}
+		if sortType == 1 {
+			sort.Sort(sort.Reverse(sort.Float64Slice(keys)))
+		} else {
+			sort.Float64s(keys)
+		}
+		for _, key := range keys {
+			eachFuncValue.Call([]reflect.Value{keysMap[key], eachMapValue.MapIndex(keysMap[key])})
+		}
+	case reflect.String:
+		keys := make([]string, 0)
+		keysMap := map[string]reflect.Value{}
+		for _, value := range eachMapValue.MapKeys() {
+			keys = append(keys, value.String())
+			keysMap[value.String()] = value
+		}
+		if sortType == 1 {
+			sort.Sort(sort.Reverse(sort.StringSlice(keys)))
+		} else {
+			sort.Strings(keys)
+		}
+		for _, key := range keys {
+			eachFuncValue.Call([]reflect.Value{keysMap[key], eachMapValue.MapIndex(keysMap[key])})
+		}
+	default:
+		panic(errors.New("eachMap key type must is int or float or string"))
 	}
 
-	return rsp
-}
-
-// SortKeyDrop 升序
-func SortKeyDrop(result map[string]interface{}) map[string]interface{} {
-	keys := make([]string, 0)
-	for key := range result {
-		keys = append(keys, key)
-	}
-
-	sort.Strings(keys)
-	rsp := make(map[string]interface{}, 0)
-	for _, k := range keys {
-		rsp[k] = result[k]
-	}
-
-	return rsp
+	return
 }
