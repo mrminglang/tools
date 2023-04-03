@@ -98,3 +98,18 @@ func SliceToSqlString(slice []string) string {
 	}
 	return str
 }
+
+// RemoveStrSilceDuplicates 移除切片重复元素
+func RemoveStrSilceDuplicates(slice []string) []string {
+	encountered := map[string]struct{}{}
+	result := []string{}
+
+	for _, v := range slice {
+		if _, has := encountered[v]; !has {
+			encountered[v] = struct{}{}
+			result = append(result, v)
+		}
+	}
+
+	return result
+}
