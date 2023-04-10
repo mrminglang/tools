@@ -35,3 +35,7 @@ func TestEndOfYear(t *testing.T) {
 	yearEndTime := times.EndOfYear()
 	dumps.Dump(yearEndTime)
 }
+
+func TestGetYearMonth(t *testing.T) {
+	dumps.Dump(times.GetYearMonth())
+}

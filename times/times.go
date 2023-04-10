@@ -2,6 +2,7 @@ package times
 
 import (
 	"github.com/jinzhu/now"
+	"time"
 )
 
 const LocalFormat = "2006-01-02 15:04:05"
@@ -34,4 +35,9 @@ func StartOfYear() string {
 // EndOfYear 当年结束时间
 func EndOfYear() string {
 	return now.EndOfYear().Format(LocalFormat)
+}
+
+// 获取当前时间的年月份值
+func GetYearMonth() string {
+	return time.Now().Format("200601")
 }
