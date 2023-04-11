@@ -37,5 +37,9 @@ func TestEndOfYear(t *testing.T) {
 }
 
 func TestGetYearMonth(t *testing.T) {
-	dumps.Dump(times.GetYearMonth())
+	dumps.Dump(times.GetYearMonth("200601"))
+}
+
+func TestGetYearProximo(t *testing.T) {
+	dumps.Dump(times.GetYearProximo("200601"))
 }

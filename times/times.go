@@ -38,6 +38,14 @@ func EndOfYear() string {
 }
 
 // 获取当前时间的年月份值
-func GetYearMonth() string {
-	return time.Now().Format("200601")
+func GetYearMonth(layout string) string {
+	return time.Now().Format(layout)
+}
+
+// 获取当前时间下月的年月份值
+func GetYearProximo(layout string) string {
+	currentTime := time.Now()
+	nextMonth := currentTime.AddDate(0, 1, 0)
+	nextMonthValue := nextMonth.Format(layout)
+	return nextMonthValue
 }
