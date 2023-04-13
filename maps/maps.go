@@ -2,6 +2,8 @@ package maps
 
 import (
 	"errors"
+	"fmt"
+	"github.com/mrminglang/tools/dumps"
 	"reflect"
 	"sort"
 )
@@ -88,4 +90,37 @@ func SortMapKey(eachMap interface{}, eachFunc interface{}, sortType int) {
 	}
 
 	return
+}
+
+// interface 转 map[string][]string
+func ConvertToMapStringSlice(in interface{}) (map[string][]string, error) {
+	dumps.Dump(in)
+	res := make(map[string][]string)
+	m, ok := in.(map[string]interface{})
+	if !ok {
+		return res, errors.New("参数格式错误")
+	}
+	for k, v := range m {
+		switch val := v.(type) {
+		case []string:
+			res[k] = val
+		case []interface{}:
+			for _, s := range val {
+				if str, ok := s.(string); ok {
+					res[k] = append(res[k], str)
+				}
+			}
+		case map[string]interface{}:
+			subMap, err := ConvertToMapStringSlice(val)
+			if err != nil {
+				return res, err
+			}
+			if subValue, exists := subMap["value"]; exists {
+				res[k] = subValue
+			}
+		default:
+			return res, fmt.Errorf("参数格式错误，键：%s，值：%v", k, v)
+		}
+	}
+	return res, nil
 }

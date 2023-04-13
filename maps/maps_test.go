@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/maps"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -20,4 +21,29 @@ func TestEachMap(t *testing.T) {
 	}, 1)
 
 	dumps.Dump(rsp)
+}
+
+func TestConvertToMapStringSlice(t *testing.T) {
+	class := map[string][]string{
+		"A": {"A1"},
+		"B": {"B1", "B2"},
+	}
+
+	m := map[string]interface{}{
+		"car":   "car1",
+		"class": class,
+	}
+
+	dumps.Dump(m)
+	if _, ok := m["class"].(interface{}); ok {
+		dumps.Dump(1111)
+		rsp := make(map[string][]string, 0)
+		rsp, err := maps.ConvertToMapStringSlice(m["class"])
+		if err != nil {
+			assert.Error(t, err)
+		}
+		dumps.Dump(rsp)
+	} else {
+		dumps.Dump(2222)
+	}
 }
