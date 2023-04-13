@@ -3,7 +3,6 @@ package maps
 import (
 	"errors"
 	"fmt"
-	"github.com/mrminglang/tools/dumps"
 	"reflect"
 	"sort"
 )
@@ -94,7 +93,6 @@ func SortMapKey(eachMap interface{}, eachFunc interface{}, sortType int) {
 
 // interface 转 map[string][]string
 func ConvertToMapStringSlice(in interface{}) (map[string][]string, error) {
-	dumps.Dump(in)
 	res := make(map[string][]string)
 	m, ok := in.(map[string]interface{})
 	if !ok {
