@@ -54,3 +54,8 @@ func TestRemoveStrSilceDuplicates(t *testing.T) {
 
 	dumps.Dump(slices.RemoveStrSilceDuplicates(str))
 }
+
+func TestStrSilce2InterfaceSilce(t *testing.T) {
+	strArr := []string{"apple", "banana", "orange"}
+	dumps.Dump(slices.StrSilce2InterfaceSilce(strArr))
+}

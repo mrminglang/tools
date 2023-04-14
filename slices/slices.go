@@ -113,3 +113,14 @@ func RemoveStrSilceDuplicates(slice []string) []string {
 
 	return result
 }
+
+// []string 转 []interface
+func StrSilce2InterfaceSilce(strArr []string) []interface{} {
+	interfaceArr := make([]interface{}, len(strArr))
+
+	for i, v := range strArr {
+		interfaceArr[i] = interface{}(v)
+	}
+
+	return interfaceArr
+}
