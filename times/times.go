@@ -49,3 +49,16 @@ func GetYearProximo(layout string) string {
 	nextMonthValue := nextMonth.Format(layout)
 	return nextMonthValue
 }
+
+// 获取开始时间如: 20230418 到2023-04-18 00:00:00
+func GetStartTime(timeStr string, layout string) string {
+	startTime, _ := time.Parse(layout, timeStr)
+	return startTime.Format(LocalFormat)
+}
+
+// 获取结束时间如: 20230418 到2023-04-18 23:59:59
+func GetEndtTime(timeStr string, layout string) string {
+	startTime, _ := time.Parse(layout, timeStr)
+	endTime := startTime.Add(time.Hour*24 - time.Second)
+	return endTime.Format(LocalFormat)
+}

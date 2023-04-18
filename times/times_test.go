@@ -43,3 +43,11 @@ func TestGetYearMonth(t *testing.T) {
 func TestGetYearProximo(t *testing.T) {
 	dumps.Dump(times.GetYearProximo("200601"))
 }
+
+func TestGetStartTime(t *testing.T) {
+	dumps.Dump(times.GetStartTime("20230418", "20060102"))
+}
+
+func TestGetEndtTime(t *testing.T) {
+	dumps.Dump(times.GetEndtTime("20230418", "20060102"))
+}
