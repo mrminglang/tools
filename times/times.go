@@ -62,3 +62,17 @@ func GetEndtTime(timeStr string, layout string) string {
 	endTime := startTime.Add(time.Hour*24 - time.Second)
 	return endTime.Format(LocalFormat)
 }
+
+// 获取指定时间到当前时间的年月IDs,如202303 返回["202303","202304"]
+func GenerateYearMonthIds(timeStr string, layout string) []string {
+	var result []string
+	t, err := time.Parse(layout, timeStr)
+	if err != nil {
+		return result
+	}
+	for t.Before(time.Now()) {
+		result = append(result, t.Format(layout))
+		t = t.AddDate(0, 1, 0)
+	}
+	return result
+}

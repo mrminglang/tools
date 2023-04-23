@@ -1,6 +1,7 @@
 package times_test
 
 import (
+	"fmt"
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/times"
 	"testing"
@@ -50,4 +51,11 @@ func TestGetStartTime(t *testing.T) {
 
 func TestGetEndtTime(t *testing.T) {
 	dumps.Dump(times.GetEndtTime("20230418", "20060102"))
+}
+
+func TestGenerateYearMonthIds(t *testing.T) {
+	start := "202303"
+	layout := "200601"
+	yearMonthIds := times.GenerateYearMonthIds(start, layout)
+	fmt.Println(yearMonthIds)
 }
