@@ -76,3 +76,13 @@ func GenerateYearMonthIds(timeStr string, layout string) []string {
 	}
 	return result
 }
+
+// 获取昨天的时间
+func GetYesterday(layout string) string {
+	// 获取当前时间
+	currentTime := time.Now()
+	// 前一天时间
+	yesterday := currentTime.AddDate(0, 0, -1)
+	// 格式化时间
+	return yesterday.Format(layout)
+}

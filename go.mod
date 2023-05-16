@@ -3,10 +3,13 @@ module github.com/mrminglang/tools
 go 1.17
 
 require (
+	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
+	github.com/bluesky335/IDCheck v0.0.0-20220430111809-304a8a8b679f
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/google/uuid v1.3.0
 	github.com/jinzhu/now v1.1.4
 	github.com/sirupsen/logrus v1.9.0
+	github.com/srlemon/gen-id v1.0.1
 	github.com/stretchr/testify v1.7.0
 )
 

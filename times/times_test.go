@@ -59,3 +59,9 @@ func TestGenerateYearMonthIds(t *testing.T) {
 	yearMonthIds := times.GenerateYearMonthIds(start, layout)
 	fmt.Println(yearMonthIds)
 }
+
+func TestGetYesterday(t *testing.T) {
+	layout := "2006-01-02"
+	yesterday := times.GetYesterday(layout)
+	dumps.Dump(yesterday)
+}
