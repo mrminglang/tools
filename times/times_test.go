@@ -65,3 +65,10 @@ func TestGetYesterday(t *testing.T) {
 	yesterday := times.GetYesterday(layout)
 	dumps.Dump(yesterday)
 }
+
+func TestGetTimeZone(t *testing.T) {
+	currentTime := "2023-05-15 09:33:14"
+	timeZone := "Asia/Shanghai"
+	layout := times.LocalFormat
+	dumps.Dump(times.GetTimeZone(currentTime, timeZone, layout))
+}

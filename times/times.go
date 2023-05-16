@@ -86,3 +86,18 @@ func GetYesterday(layout string) string {
 	// 格式化时间
 	return yesterday.Format(layout)
 }
+
+// 获取指定时区的时间
+func GetTimeZone(currentTime string, timeZone, layout string) string {
+	parseTime, err := time.Parse(LocalFormat, currentTime)
+	if err != nil {
+		return currentTime
+	}
+
+	locationTime, err := time.LoadLocation(timeZone)
+	if err != nil {
+		return currentTime
+	}
+
+	return parseTime.In(locationTime).Format(layout)
+}
