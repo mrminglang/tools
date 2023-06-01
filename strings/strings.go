@@ -3,6 +3,8 @@ package strings
 import (
 	"bytes"
 	"fmt"
+	"github.com/mrminglang/tools/checks/regex"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -169,4 +171,20 @@ func GetStringYear(str string, len int) string {
 		return ""
 	}
 	return strconv.Itoa(rsp)
+}
+
+// StrUrlReplace 字符串中URL替换成指定格式
+func StrUrlReplace(content, label string) string {
+	re := regexp.MustCompile(regex.RegularUrl)
+	urls := make(map[string]bool)
+	// 使用map来记录已经替换过的URL，避免重复替换
+	replaced := re.ReplaceAllStringFunc(content, func(url string) string {
+		if _, ok := urls[url]; !ok {
+			urls[url] = true
+			return fmt.Sprintf(label, url)
+		}
+		return url
+	})
+
+	return replaced
 }

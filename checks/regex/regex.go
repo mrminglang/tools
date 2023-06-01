@@ -16,7 +16,7 @@ const (
 	RegularNameMsg string = "姓名错误，只能是中文，点号分隔符·，且须2～20个字符。"
 
 	// URL
-	RegularUrl    string = "^(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$"
+	RegularUrl    string = `(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%\?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`
 	RegularUrlMsg string = "不是一个有效的URL地址"
 
 	// 电子邮箱

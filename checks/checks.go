@@ -158,7 +158,8 @@ func RegexCheckIsRequestURL(url string) (err error) {
 
 // URL正则校验
 func RegexCheckURL(url string) (err error) {
-	reg := regexp.MustCompile(regex.RegularUrl)
+	regularUrl := fmt.Sprintf("^%s$", regex.RegularUrl)
+	reg := regexp.MustCompile(regularUrl)
 	if ok := reg.MatchString(url); !ok {
 		err = errors.New(regex.RegularUrlMsg)
 	}

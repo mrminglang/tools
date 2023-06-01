@@ -34,3 +34,10 @@ func TestGetStringYear(t *testing.T) {
 	title := "贵州茅台2023年第三季度报告"
 	dumps.Dump(strings2.GetStringYear(title, 5))
 }
+
+func TestStrUrlReplace(t *testing.T) {
+	content := "链接URL一:https://www.baid.com?a=a 链接URL三:https://www.baid.com?b=b 链接URL二:https://www.baid.com"
+	label := "#link{%s}link#"
+	content = strings2.StrUrlReplace(content, label)
+	dumps.Dump(content)
+}
