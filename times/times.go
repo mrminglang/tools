@@ -5,36 +5,34 @@ import (
 	"time"
 )
 
-const LocalFormat = "2006-01-02 15:04:05"
-
 // StartOfDay 当天开始时间
 func StartOfDay() string {
-	return now.BeginningOfDay().Format(LocalFormat)
+	return now.BeginningOfDay().Format(TimeFormat)
 }
 
 // EndOfDay 当天结束时间
 func EndOfDay() string {
-	return now.EndOfDay().Format(LocalFormat)
+	return now.EndOfDay().Format(TimeFormat)
 }
 
 // StartOfMonth 当月开始时间
 func StartOfMonth() string {
-	return now.BeginningOfMonth().Format(LocalFormat)
+	return now.BeginningOfMonth().Format(TimeFormat)
 }
 
 // EndOfMonth 当月结束时间
 func EndOfMonth() string {
-	return now.EndOfMonth().Format(LocalFormat)
+	return now.EndOfMonth().Format(TimeFormat)
 }
 
 // StartOfYear 当年开始时间
 func StartOfYear() string {
-	return now.BeginningOfYear().Format(LocalFormat)
+	return now.BeginningOfYear().Format(TimeFormat)
 }
 
 // EndOfYear 当年结束时间
 func EndOfYear() string {
-	return now.EndOfYear().Format(LocalFormat)
+	return now.EndOfYear().Format(TimeFormat)
 }
 
 // 获取当前时间的年月份值
@@ -53,14 +51,14 @@ func GetYearProximo(layout string) string {
 // 获取开始时间如: 20230418 到2023-04-18 00:00:00
 func GetStartTime(timeStr string, layout string) string {
 	startTime, _ := time.Parse(layout, timeStr)
-	return startTime.Format(LocalFormat)
+	return startTime.Format(TimeFormat)
 }
 
 // 获取结束时间如: 20230418 到2023-04-18 23:59:59
 func GetEndtTime(timeStr string, layout string) string {
 	startTime, _ := time.Parse(layout, timeStr)
 	endTime := startTime.Add(time.Hour*24 - time.Second)
-	return endTime.Format(LocalFormat)
+	return endTime.Format(TimeFormat)
 }
 
 // 获取指定时间到当前时间的年月IDs,如202303 返回["202303","202304"]
@@ -89,7 +87,7 @@ func GetYesterday(layout string) string {
 
 // 获取指定时区的时间
 func GetTimeZone(currentTime string, timeZone, layout string) string {
-	parseTime, err := time.Parse(LocalFormat, currentTime)
+	parseTime, err := time.Parse(TimeFormat, currentTime)
 	if err != nil {
 		return currentTime
 	}

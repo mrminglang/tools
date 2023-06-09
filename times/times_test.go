@@ -38,37 +38,37 @@ func TestEndOfYear(t *testing.T) {
 }
 
 func TestGetYearMonth(t *testing.T) {
-	dumps.Dump(times.GetYearMonth("200601"))
+	dumps.Dump(times.GetYearMonth(times.YYYYMM))
 }
 
 func TestGetYearProximo(t *testing.T) {
-	dumps.Dump(times.GetYearProximo("200601"))
+	dumps.Dump(times.GetYearProximo(times.YYYYMM))
 }
 
 func TestGetStartTime(t *testing.T) {
-	dumps.Dump(times.GetStartTime("20230418", "20060102"))
+	dumps.Dump(times.GetStartTime("20230418", times.YYYYMMDD))
 }
 
 func TestGetEndtTime(t *testing.T) {
-	dumps.Dump(times.GetEndtTime("20230418", "20060102"))
+	dumps.Dump(times.GetEndtTime("20230418", times.YYYYMMDD))
 }
 
 func TestGenerateYearMonthIds(t *testing.T) {
 	start := "202303"
-	layout := "200601"
+	layout := times.YYYYMM
 	yearMonthIds := times.GenerateYearMonthIds(start, layout)
 	fmt.Println(yearMonthIds)
 }
 
 func TestGetYesterday(t *testing.T) {
-	layout := "2006-01-02"
+	layout := times.YMDFormat
 	yesterday := times.GetYesterday(layout)
 	dumps.Dump(yesterday)
 }
 
 func TestGetTimeZone(t *testing.T) {
 	currentTime := "2023-05-15 09:33:14"
-	timeZone := "Asia/Shanghai"
-	layout := times.LocalFormat
+	timeZone := times.TimeZoneSH
+	layout := times.TimeFormat
 	dumps.Dump(times.GetTimeZone(currentTime, timeZone, layout))
 }
