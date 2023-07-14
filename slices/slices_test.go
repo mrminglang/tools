@@ -59,3 +59,9 @@ func TestStrSilce2InterfaceSilce(t *testing.T) {
 	strArr := []string{"apple", "banana", "orange"}
 	dumps.Dump(slices.StrSilce2InterfaceSilce(strArr))
 }
+
+func TestInArray(t *testing.T) {
+	array := []string{"2258", "2259", "2260"}
+	target := "102259"
+	dumps.Dump(slices.InArray(array, target))
+}

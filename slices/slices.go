@@ -3,6 +3,7 @@ package slices
 import (
 	"errors"
 	"reflect"
+	"sort"
 )
 
 // IsSlice 判断是否为slice数据
@@ -123,4 +124,15 @@ func StrSilce2InterfaceSilce(strArr []string) []interface{} {
 	}
 
 	return interfaceArr
+}
+
+// 判断字符串类型数组的某个元素值是否存在(二分法)
+func InArray(array []string, target string) bool {
+	sort.Strings(array)
+	index := sort.SearchStrings(array, target)
+	// index的值:[0,len(array)]
+	if index < len(array) && array[index] == target {
+		return true
+	}
+	return false
 }
