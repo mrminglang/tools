@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/times"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -85,4 +86,12 @@ func TestGetMonthTime(t *testing.T) {
 	monthStartTime, monthEndTime := times.GetMonthTime(2022, 8, times.YYMMDD)
 	dumps.Dump(monthStartTime)
 	dumps.Dump(monthEndTime)
+}
+
+func TestParseMonth(t *testing.T) {
+	month, err := times.ParseMonth("8")
+	if err != nil {
+		assert.Error(t, err)
+	}
+	dumps.Dump(month)
 }

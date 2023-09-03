@@ -1,6 +1,8 @@
 package times
 
 import (
+	"errors"
+	"fmt"
 	"github.com/jinzhu/now"
 	"time"
 )
@@ -122,4 +124,37 @@ func GetMonthTime(year int, month time.Month, layout string) (string, string) {
 	endTime := startTime.AddDate(0, 1, -1).Add(time.Hour * 23).Add(time.Minute * 59).Add(time.Second * 59)
 
 	return startTime.Format(layout), endTime.Format(layout)
+}
+
+func ParseMonth(monthStr string) (time.Month, error) {
+	monthMap := map[string]time.Month{
+		"1":  time.January,
+		"01": time.January,
+		"2":  time.February,
+		"02": time.February,
+		"3":  time.March,
+		"03": time.March,
+		"4":  time.April,
+		"04": time.April,
+		"5":  time.May,
+		"05": time.May,
+		"6":  time.June,
+		"06": time.June,
+		"7":  time.July,
+		"07": time.July,
+		"8":  time.August,
+		"08": time.August,
+		"9":  time.September,
+		"09": time.September,
+		"10": time.October,
+		"11": time.November,
+		"12": time.December,
+	}
+
+	month, ok := monthMap[monthStr]
+	if !ok {
+		return 0, errors.New(fmt.Sprintf("Invalid month: %s", monthStr))
+	}
+
+	return month, nil
 }

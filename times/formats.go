@@ -7,8 +7,11 @@ const (
 	TimeZoneCQ    = "Asia/Chongqing" // 重庆时区
 
 	YYYY = "2006" // 年
+	YY   = "06"   // 年
 	MM   = "01"   // 月
+	M    = "1"    // 月
 	DD   = "02"   // 日
+	D    = "2"    // 日
 	hh   = "15"   // 时
 	mm   = "04"   // 分
 	ss   = "05"   // 秒
