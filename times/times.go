@@ -109,11 +109,13 @@ func GetConvertTime(timeStr, layout, outputLayout string) string {
 }
 
 // 获取月份数据
-func GetMonthTime(month time.Month, layout string) (string, string) {
+func GetMonthTime(year int, month time.Month, layout string) (string, string) {
 	if month == 0 {
 		month = time.Now().Month()
 	}
-	year := time.Now().Year()
+	if year == 0 {
+		year = time.Now().Year()
+	}
 	// Create the start time of the month
 	startTime := time.Date(year, month, 1, 0, 0, 0, 0, time.UTC)
 	// Create the end time of the month

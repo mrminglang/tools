@@ -82,7 +82,7 @@ func TestGetConvertTime(t *testing.T) {
 }
 
 func TestGetMonthTime(t *testing.T) {
-	monthStartTime, monthEndTime := times.GetMonthTime(8, times.YYMMDD)
+	monthStartTime, monthEndTime := times.GetMonthTime(2022, 8, times.YYMMDD)
 	dumps.Dump(monthStartTime)
 	dumps.Dump(monthEndTime)
 }
