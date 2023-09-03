@@ -100,10 +100,24 @@ func GetTimeZone(currentTime string, timeZone, layout string) string {
 	return parseTime.In(locationTime).Format(layout)
 }
 
-// GetTimeYYMMDDhhmmss 获取时间的年月日时分秒
-func GetTimeYYMMDDhhmmss(timeStr, layout, outputLayout string) string {
+// GetConvertTime 转换时间格式
+func GetConvertTime(timeStr, layout, outputLayout string) string {
 	// 将时间字符串解析为时间对象
 	t, _ := time.Parse(layout, timeStr)
 	// 格式化时间为指定格式的字符串
 	return t.Format(outputLayout)
+}
+
+// 获取月份数据
+func GetMonthTime(month time.Month, layout string) (string, string) {
+	if month == 0 {
+		month = time.Now().Month()
+	}
+	year := time.Now().Year()
+	// Create the start time of the month
+	startTime := time.Date(year, month, 1, 0, 0, 0, 0, time.UTC)
+	// Create the end time of the month
+	endTime := startTime.AddDate(0, 1, -1).Add(time.Hour * 23).Add(time.Minute * 59).Add(time.Second * 59)
+
+	return startTime.Format(layout), endTime.Format(layout)
 }

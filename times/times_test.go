@@ -73,10 +73,16 @@ func TestGetTimeZone(t *testing.T) {
 	dumps.Dump(times.GetTimeZone(currentTime, timeZone, layout))
 }
 
-func TestGetTimeYYMMDDhhmmss(t *testing.T) {
+func TestGetConvertTime(t *testing.T) {
 	timeStr := "220321183549"
 	layout := times.YYMMDDhhmmss
 	outputLayout := times.YMDhmsFormat3
 
-	dumps.Dump(times.GetTimeYYMMDDhhmmss(timeStr, layout, outputLayout))
+	dumps.Dump(times.GetConvertTime(timeStr, layout, outputLayout))
+}
+
+func TestGetMonthTime(t *testing.T) {
+	monthStartTime, monthEndTime := times.GetMonthTime(8, times.YYMMDD)
+	dumps.Dump(monthStartTime)
+	dumps.Dump(monthEndTime)
 }
