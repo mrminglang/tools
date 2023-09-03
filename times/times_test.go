@@ -72,3 +72,11 @@ func TestGetTimeZone(t *testing.T) {
 	layout := times.TimeFormat
 	dumps.Dump(times.GetTimeZone(currentTime, timeZone, layout))
 }
+
+func TestGetTimeYYMMDDhhmmss(t *testing.T) {
+	timeStr := "220321183549"
+	layout := times.YYMMDDhhmmss
+	outputLayout := times.YMDhmsFormat3
+
+	dumps.Dump(times.GetTimeYYMMDDhhmmss(timeStr, layout, outputLayout))
+}

@@ -99,3 +99,11 @@ func GetTimeZone(currentTime string, timeZone, layout string) string {
 
 	return parseTime.In(locationTime).Format(layout)
 }
+
+// GetTimeYYMMDDhhmmss 获取时间的年月日时分秒
+func GetTimeYYMMDDhhmmss(timeStr, layout, outputLayout string) string {
+	// 将时间字符串解析为时间对象
+	t, _ := time.Parse(layout, timeStr)
+	// 格式化时间为指定格式的字符串
+	return t.Format(outputLayout)
+}
