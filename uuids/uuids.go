@@ -1,9 +1,13 @@
 package uuids
 
 import (
+	"crypto/rand"
+	"encoding/base64"
+	"fmt"
 	"github.com/bwmarrin/snowflake"
 	"github.com/google/uuid"
 	"strings"
+	"time"
 )
 
 // GenerateUuid 雪花算法生成19位唯一id
@@ -31,4 +35,35 @@ func GetRandowUUID() string {
 	strArray := strings.Split(str, "-")
 	str = strings.Join(strArray, "")
 	return str
+}
+
+// GenerateUniqueNonceStr 生成唯一性随机字符串
+func GenerateUniqueNonceStr(length int) (string, error) {
+	nonceStr, err := GenerateNonceStr(length)
+	if err != nil {
+		return "", err
+	}
+	// 添加时间戳作为唯一标识符
+	timestamp := time.Now().UnixNano()
+	nonceStr = fmt.Sprintf("%s%d", nonceStr, timestamp)
+	return nonceStr, nil
+}
+
+// GenerateNonceStr 生成随机字符串
+func GenerateNonceStr(length int) (string, error) {
+	randomBytes := make([]byte, length)
+	_, err := rand.Read(randomBytes)
+	if err != nil {
+		return "", err
+	}
+
+	// Use base64 encoding to generate the random bytes
+	nonceStr := base64.URLEncoding.EncodeToString(randomBytes)
+
+	// Trim the nonceStr to the specified length
+	if len(nonceStr) > length {
+		nonceStr = nonceStr[:length]
+	}
+
+	return nonceStr, nil
 }

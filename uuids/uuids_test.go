@@ -28,3 +28,21 @@ func TestGenerateUuid(t *testing.T) {
 		assert.Equal(t, 19, len(uuid))
 	}
 }
+
+func TestGenerateUniqueNonceStr(t *testing.T) {
+	str, err := uuids.GenerateUniqueNonceStr(16)
+	if err != nil {
+		assert.Error(t, err)
+	}
+
+	dumps.Dump(str)
+}
+
+func TestGenerateNonceStr(t *testing.T) {
+	str, err := uuids.GenerateNonceStr(16)
+	if err != nil {
+		assert.Error(t, err)
+	}
+
+	dumps.Dump(str)
+}
