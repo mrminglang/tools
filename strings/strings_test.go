@@ -4,12 +4,31 @@ import (
 	"github.com/mrminglang/tools/dumps"
 	strings2 "github.com/mrminglang/tools/strings"
 	"github.com/stretchr/testify/assert"
+	"io/ioutil"
 	"testing"
 )
 
 func TestTrimStr(t *testing.T) {
 	s := strings2.TrimStr(" ssss \t")
 	dumps.Dump(s)
+}
+
+func TestTrimSignStr(t *testing.T) {
+	pri, err := ioutil.ReadFile("./user_private.key")
+	if err != nil {
+		assert.Error(t, err)
+	}
+	pub, err := ioutil.ReadFile("./user_public.key")
+	if err != nil {
+		assert.Error(t, err)
+	}
+
+	userPrivate := strings2.TrimSignStr(string(pri))
+	dumps.Dump(userPrivate)
+
+	userPublic := strings2.TrimSignStr(string(pub))
+	dumps.Dump(userPublic)
+
 }
 
 func TestAddPrefix(t *testing.T) {

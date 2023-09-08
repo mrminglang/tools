@@ -1,6 +1,7 @@
 package hashs
 
 import (
+	"crypto/md5"
 	"crypto/sha1"
 	"encoding/hex"
 )
@@ -23,4 +24,11 @@ func GenerateSHA1Signature(input string) string {
 	signatureHex := hex.EncodeToString(signature)
 
 	return signatureHex
+}
+
+// MD5Hash 对字符串MD5哈希加密
+func MD5Hash(str string) string {
+	hash := md5.Sum([]byte(str))
+	md5Str := hex.EncodeToString(hash[:])
+	return md5Str
 }

@@ -16,6 +16,18 @@ func TrimStr(s string) string {
 	s = strings.ReplaceAll(s, " ", "")
 	s = strings.ReplaceAll(s, "\t", "")
 	s = strings.ReplaceAll(s, "\n", "")
+	s = strings.ReplaceAll(s, "\r", "")
+	s = strings.ReplaceAll(s, "\r\n", "")
+	return s
+}
+
+// TrimSignStr 去除签名公私钥字符串头尾
+func TrimSignStr(s string) string {
+	s = strings.ReplaceAll(s, "-----BEGIN PRIVATE KEY-----", "")
+	s = strings.ReplaceAll(s, "-----END PRIVATE KEY-----", "")
+	s = strings.ReplaceAll(s, "-----BEGIN PUBLIC KEY-----", "")
+	s = strings.ReplaceAll(s, "-----END PUBLIC KEY-----", "")
+	s = TrimStr(s)
 	return s
 }
 

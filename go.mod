@@ -8,6 +8,7 @@ require (
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/google/uuid v1.3.0
 	github.com/jinzhu/now v1.1.4
+	github.com/joho/godotenv v1.5.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/srlemon/gen-id v1.0.1
 	github.com/stretchr/testify v1.7.0
