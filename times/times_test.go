@@ -95,3 +95,9 @@ func TestParseMonth(t *testing.T) {
 	}
 	dumps.Dump(month)
 }
+
+func TestIsSameDay(t *testing.T) {
+	timeValue := "2023-11-03 13:38:11"
+	ok := times.IsSameDay(timeValue, times.TimeFormat)
+	dumps.Dump(ok)
+}

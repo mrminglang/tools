@@ -126,6 +126,7 @@ func GetMonthTime(year int, month time.Month, layout string) (string, string) {
 	return startTime.Format(layout), endTime.Format(layout)
 }
 
+// 解析月份
 func ParseMonth(monthStr string) (time.Month, error) {
 	monthMap := map[string]time.Month{
 		"1":  time.January,
@@ -157,4 +158,15 @@ func ParseMonth(monthStr string) (time.Month, error) {
 	}
 
 	return month, nil
+}
+
+// 判断是否为当天时间格式
+func IsSameDay(timeValue, layout string) bool {
+	t, err := time.Parse(layout, timeValue)
+	if err != nil {
+		return false
+	}
+	currentDate := time.Now().Format(YMDFormat)
+	targetDate := t.Format(YMDFormat)
+	return currentDate == targetDate
 }
