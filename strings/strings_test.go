@@ -60,3 +60,9 @@ func TestStrUrlReplace(t *testing.T) {
 	content = strings2.StrUrlReplace(content, label)
 	dumps.Dump(content)
 }
+
+func TestConvertToString(t *testing.T) {
+	strs := []string{"1030032215", "1030027809", "1030020860", "1030031884"}
+	result := strings2.ConvertToString(strs)
+	dumps.Dump(result)
+}

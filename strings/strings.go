@@ -65,6 +65,18 @@ func CaseToCamel(name string) string {
 	return strings.Replace(name, " ", "", -1)
 }
 
+// ConvertToString 切片转字符串格式
+func ConvertToString(strs []string) string {
+	var result string
+	for i, str := range strs {
+		if i > 0 {
+			result += ","
+		}
+		result += "'" + str + "'"
+	}
+	return result
+}
+
 // WhereInString where in String
 func WhereInString(slices []string) string {
 	str := ""
