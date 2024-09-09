@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/mrminglang/tools/checks/regex"
+	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -211,4 +212,9 @@ func StrUrlReplace(content, label string) string {
 	})
 
 	return replaced
+}
+
+// IsBoolType 判断是否为布尔类型
+func IsBoolType(str interface{}) bool {
+	return reflect.TypeOf(str).Kind() == reflect.Bool
 }

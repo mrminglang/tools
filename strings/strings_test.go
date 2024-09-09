@@ -66,3 +66,8 @@ func TestConvertToString(t *testing.T) {
 	result := strings2.ConvertToString(strs)
 	dumps.Dump(result)
 }
+
+func TestIsBoolType(t *testing.T) {
+	ok := strings2.IsBoolType("false")
+	dumps.Dump(ok)
+}
