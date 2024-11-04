@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/jinzhu/now"
+	"strconv"
 	"time"
 )
 
@@ -169,4 +170,31 @@ func IsSameDay(timeValue, layout string) bool {
 	currentDate := time.Now().Format(YMDFormat)
 	targetDate := t.Format(YMDFormat)
 	return currentDate == targetDate
+}
+
+// IsTimestamp 判断是否为时间戳(秒级或毫秒级)
+func IsTimestamp(timestamp int64) bool {
+	length := len(strconv.FormatInt(timestamp, 10))
+
+	return length == 10 || length == 13
+}
+
+// ConvertTimestamp 秒级时间戳转毫秒级时间戳
+func ConvertTimestamp(timestamp int64) int64 {
+	length := len(strconv.FormatInt(timestamp, 10))
+	if length == 10 {
+		return timestamp * 1000 // 转换为毫秒级时间戳
+	}
+
+	return timestamp // 否则返回原值
+}
+
+// ConvertToSeconds 毫秒级时间戳转秒级时间戳
+func ConvertToSeconds(timestamp int64) int64 {
+	length := len(strconv.FormatInt(timestamp, 10))
+	if length == 13 {
+		return timestamp / 1000 // 转换为秒级时间戳
+	}
+
+	return timestamp // 否则返回原值
 }

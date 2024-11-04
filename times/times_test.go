@@ -101,3 +101,18 @@ func TestIsSameDay(t *testing.T) {
 	ok := times.IsSameDay(timeValue, times.TimeFormat)
 	dumps.Dump(ok)
 }
+
+func TestIsTimestamp(t *testing.T) {
+	dumps.Dump(times.IsTimestamp(123456789))
+	dumps.Dump(times.IsTimestamp(1633036800))
+	dumps.Dump(times.IsTimestamp(1633036800000))
+}
+
+func TestConvertTimestamp(t *testing.T) {
+	dumps.Dump(times.ConvertTimestamp(1726712577))
+	dumps.Dump(times.ConvertTimestamp(1633036800000))
+}
+
+func TestConvertToSeconds(t *testing.T) {
+	dumps.Dump(times.ConvertToSeconds(1633036800000))
+}
