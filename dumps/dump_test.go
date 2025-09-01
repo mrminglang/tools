@@ -1,10 +1,10 @@
 package dumps_test
 
 import (
-	"github.com/mrminglang/tools/dumps"
 	"testing"
-)
 
+	"github.com/mrminglang/tools/dumps"
+)
 
 func TestDump(t *testing.T) {
 	dumps.Dump("test")

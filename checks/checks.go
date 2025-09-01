@@ -3,14 +3,15 @@ package checks
 import (
 	"errors"
 	"fmt"
+	"regexp"
+	"strings"
+
 	"github.com/asaskevich/govalidator"
 	"github.com/bluesky335/IDCheck/IdNumber"
 	"github.com/mrminglang/tools/checks/regex"
-	"regexp"
-	"strings"
 )
 
-// 身份证号正则校验
+// RegexCheckIDCard 身份证号正则校验
 func RegexCheckIDCard(idCard string) (err error) {
 	if strings.Contains(idCard, "x") == true {
 		err = errors.New(regex.RegularIDCardXMsg)
@@ -23,7 +24,7 @@ func RegexCheckIDCard(idCard string) (err error) {
 	return
 }
 
-// 手机号正则校验
+// RegexCheckPhone 手机号正则校验
 func RegexCheckPhone(phone string) (err error) {
 	reg := regexp.MustCompile(regex.RegularPhone)
 	if ok := reg.MatchString(phone); !ok {
@@ -32,7 +33,7 @@ func RegexCheckPhone(phone string) (err error) {
 	return
 }
 
-// 联系方式正则校验（座机号码或者手机号）
+// RegexCheckTel 联系方式正则校验（座机号码或者手机号）
 func RegexCheckTel(tel string) (err error) {
 	reg := regexp.MustCompile(regex.RegularTel)
 	if ok := reg.MatchString(tel); !ok {
@@ -41,7 +42,7 @@ func RegexCheckTel(tel string) (err error) {
 	return
 }
 
-// 收款类型校验EN
+// RegexCheckPayeeType 收款类型校验EN
 func RegexCheckPayeeType(payeeType string) (identityType string) {
 	switch payeeType {
 	case regex.PayeeTypeBankCN:
@@ -54,7 +55,7 @@ func RegexCheckPayeeType(payeeType string) (identityType string) {
 	return identityType
 }
 
-// 收款类型校验CN
+// RegexCheckIdentityTypeCN 收款类型校验CN
 func RegexCheckIdentityTypeCN(payeeType string) (identityType string) {
 	switch payeeType {
 	case regex.PayeeTypeBankEN:
@@ -67,7 +68,7 @@ func RegexCheckIdentityTypeCN(payeeType string) (identityType string) {
 	return identityType
 }
 
-// 收款账号正则校验
+// RegexCheckIdentity 收款账号正则校验
 func RegexCheckIdentity(identityType string, identity string) (err error) {
 	switch identityType {
 	case regex.PayeeTypeBankEN:
@@ -81,7 +82,7 @@ func RegexCheckIdentity(identityType string, identity string) (err error) {
 	return
 }
 
-// 收款账号为银行卡
+// RegexCheckBankFormat 收款账号为银行卡
 func RegexCheckBankFormat(identity string) (err error) {
 	if len(identity) == 11 { // 手机号
 		reg := regexp.MustCompile(regex.RegularPhone)
@@ -98,7 +99,7 @@ func RegexCheckBankFormat(identity string) (err error) {
 	return
 }
 
-// 收款账号为支付宝
+// RegexCheckAliFormat 收款账号为支付宝
 func RegexCheckAliFormat(identity string) (err error) {
 	if strings.Contains(identity, "@") { // 电子邮箱
 		if err = RegexCheckEmail(identity); err != nil {
@@ -122,7 +123,7 @@ func RegexCheckAliFormat(identity string) (err error) {
 	return
 }
 
-// 支付宝用户ID正则校验
+// RegexCheckAliUserID 支付宝用户ID正则校验
 func RegexCheckAliUserID(userID string) (err error) {
 	reg := regexp.MustCompile(regex.RegularAlipayUserID)
 	if ok := reg.MatchString(userID); !ok {
@@ -131,7 +132,7 @@ func RegexCheckAliUserID(userID string) (err error) {
 	return
 }
 
-// 邮箱正则校验
+// RegexCheckEmail 邮箱正则校验
 func RegexCheckEmail(email string) (err error) {
 	if !govalidator.IsEmail(email) {
 		err = errors.New(regex.RegularEmailMsg)
@@ -139,7 +140,7 @@ func RegexCheckEmail(email string) (err error) {
 	return
 }
 
-// 姓名正则校验
+// RegexCheckName 姓名正则校验
 func RegexCheckName(name string) (err error) {
 	reg := regexp.MustCompile(regex.RegularName)
 	if ok := reg.MatchString(name); !ok {
@@ -148,7 +149,7 @@ func RegexCheckName(name string) (err error) {
 	return
 }
 
-// URL正则校验
+// RegexCheckIsRequestURL URL正则校验
 func RegexCheckIsRequestURL(url string) (err error) {
 	if !govalidator.IsRequestURL(url) {
 		err = errors.New(regex.RegularUrlMsg)
@@ -156,7 +157,7 @@ func RegexCheckIsRequestURL(url string) (err error) {
 	return
 }
 
-// URL正则校验
+// RegexCheckURL URL正则校验
 func RegexCheckURL(url string) (err error) {
 	regularUrl := fmt.Sprintf("^%s$", regex.RegularUrl)
 	reg := regexp.MustCompile(regularUrl)
@@ -166,7 +167,7 @@ func RegexCheckURL(url string) (err error) {
 	return
 }
 
-// 联系地址
+// RegexCheckAddress 联系地址
 func RegexCheckAddress(address string) (err error) {
 	reg := regexp.MustCompile(regex.RegularAddress)
 	if ok := reg.MatchString(address); !ok {
@@ -175,7 +176,7 @@ func RegexCheckAddress(address string) (err error) {
 	return
 }
 
-// 银行账户名称
+// RegexCheckBankAccountName 银行账户名称
 func RegexCheckBankAccountName(bankAccountName string) (err error) {
 	reg := regexp.MustCompile(regex.RegularBankAccountName)
 	if ok := reg.MatchString(bankAccountName); !ok {
@@ -184,7 +185,7 @@ func RegexCheckBankAccountName(bankAccountName string) (err error) {
 	return
 }
 
-// 开户行
+// RegexCheckBankOfDeposit 开户行
 func RegexCheckBankOfDeposit(bankOfDeposit string) (err error) {
 	reg := regexp.MustCompile(regex.RegularBankOfDeposit)
 	if ok := reg.MatchString(bankOfDeposit); !ok {

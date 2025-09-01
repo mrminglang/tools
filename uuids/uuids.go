@@ -4,10 +4,11 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"fmt"
-	"github.com/bwmarrin/snowflake"
-	"github.com/google/uuid"
 	"strings"
 	"time"
+
+	"github.com/bwmarrin/snowflake"
+	"github.com/google/uuid"
 )
 
 // GenerateUuid 雪花算法生成19位唯一id

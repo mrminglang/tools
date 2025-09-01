@@ -2,10 +2,11 @@ package slices_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/slices"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestIsSlice(t *testing.T) {

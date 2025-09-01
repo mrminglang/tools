@@ -2,10 +2,11 @@ package cryptos_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/mrminglang/tools/cryptos"
 	"github.com/mrminglang/tools/dumps"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestEncrypt(t *testing.T) {

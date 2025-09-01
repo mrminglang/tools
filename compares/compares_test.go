@@ -1,9 +1,10 @@
 package compares_test
 
 import (
+	"testing"
+
 	"github.com/mrminglang/tools/compares"
 	"github.com/mrminglang/tools/dumps"
-	"testing"
 )
 
 func TestGetCompares(t *testing.T) {

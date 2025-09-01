@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// 分页标识替换
+// GetPages 分页标识替换
 func GetPages(sql string, page, size int) string {
 	sql = strings.ReplaceAll(sql, "$LIMIT_STRING", GetLimitString(page, size))
 	sql = strings.ReplaceAll(sql, "$BETWEEN_STRING", GetBetweenString(page, size))
@@ -51,7 +51,7 @@ func GetOffsetString(page, size int) string {
 	return fmt.Sprintf("OFFSET %d ROWS FETCH NEXT %d ROWS ONLY", (page-1)*size, size)
 }
 
-//GetSkipString mongo分页处理
+// GetSkipString mongo分页处理
 func GetSkipString(page, size int) string {
 	if page <= 0 {
 		page = 1

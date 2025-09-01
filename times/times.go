@@ -3,9 +3,10 @@ package times
 import (
 	"errors"
 	"fmt"
-	"github.com/jinzhu/now"
 	"strconv"
 	"time"
+
+	"github.com/jinzhu/now"
 )
 
 // StartOfDay 当天开始时间
@@ -38,12 +39,12 @@ func EndOfYear() string {
 	return now.EndOfYear().Format(TimeFormat)
 }
 
-// 获取当前时间的年月份值
+// GetYearMonth 获取当前时间的年月份值
 func GetYearMonth(layout string) string {
 	return time.Now().Format(layout)
 }
 
-// 获取当前时间下月的年月份值
+// GetYearProximo 获取当前时间下月的年月份值
 func GetYearProximo(layout string) string {
 	currentTime := time.Now()
 	nextMonth := currentTime.AddDate(0, 1, 0)
@@ -51,20 +52,20 @@ func GetYearProximo(layout string) string {
 	return nextMonthValue
 }
 
-// 获取开始时间如: 20230418 到2023-04-18 00:00:00
+// GetStartTime 获取开始时间如: 20230418 到2023-04-18 00:00:00
 func GetStartTime(timeStr string, layout string) string {
 	startTime, _ := time.Parse(layout, timeStr)
 	return startTime.Format(TimeFormat)
 }
 
-// 获取结束时间如: 20230418 到2023-04-18 23:59:59
-func GetEndtTime(timeStr string, layout string) string {
+// GetEndTime 获取结束时间如: 20230418 到2023-04-18 23:59:59
+func GetEndTime(timeStr string, layout string) string {
 	startTime, _ := time.Parse(layout, timeStr)
 	endTime := startTime.Add(time.Hour*24 - time.Second)
 	return endTime.Format(TimeFormat)
 }
 
-// 获取指定时间到当前时间的年月IDs,如202303 返回["202303","202304"]
+// GenerateYearMonthIds 获取指定时间到当前时间的年月IDs,如202303 返回["202303","202304"]
 func GenerateYearMonthIds(timeStr string, layout string) []string {
 	var result []string
 	t, err := time.Parse(layout, timeStr)
@@ -78,7 +79,7 @@ func GenerateYearMonthIds(timeStr string, layout string) []string {
 	return result
 }
 
-// 获取昨天的时间
+// GetYesterday 获取昨天的时间
 func GetYesterday(layout string) string {
 	// 获取当前时间
 	currentTime := time.Now()
@@ -88,7 +89,7 @@ func GetYesterday(layout string) string {
 	return yesterday.Format(layout)
 }
 
-// 获取指定时区的时间
+// GetTimeZone 获取指定时区的时间
 func GetTimeZone(currentTime string, timeZone, layout string) string {
 	parseTime, err := time.Parse(TimeFormat, currentTime)
 	if err != nil {
@@ -111,7 +112,7 @@ func GetConvertTime(timeStr, layout, outputLayout string) string {
 	return t.Format(outputLayout)
 }
 
-// 获取月份数据
+// GetMonthTime 获取月份数据
 func GetMonthTime(year int, month time.Month, layout string) (string, string) {
 	if month == 0 {
 		month = time.Now().Month()
@@ -127,7 +128,7 @@ func GetMonthTime(year int, month time.Month, layout string) (string, string) {
 	return startTime.Format(layout), endTime.Format(layout)
 }
 
-// 解析月份
+// ParseMonth 解析月份
 func ParseMonth(monthStr string) (time.Month, error) {
 	monthMap := map[string]time.Month{
 		"1":  time.January,
@@ -161,7 +162,7 @@ func ParseMonth(monthStr string) (time.Month, error) {
 	return month, nil
 }
 
-// 判断是否为当天时间格式
+// IsSameDay 判断是否为当天时间格式
 func IsSameDay(timeValue, layout string) bool {
 	t, err := time.Parse(layout, timeValue)
 	if err != nil {

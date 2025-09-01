@@ -2,10 +2,11 @@ package times_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/times"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestStartOfDay(t *testing.T) {
@@ -51,7 +52,7 @@ func TestGetStartTime(t *testing.T) {
 }
 
 func TestGetEndtTime(t *testing.T) {
-	dumps.Dump(times.GetEndtTime("20230418", times.YYYYMMDD))
+	dumps.Dump(times.GetEndTime("20230418", times.YYYYMMDD))
 }
 
 func TestGenerateYearMonthIds(t *testing.T) {

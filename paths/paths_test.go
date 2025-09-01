@@ -1,10 +1,11 @@
 package paths_test
 
 import (
+	"testing"
+
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/paths"
 	"github.com/sirupsen/logrus"
-	"testing"
 )
 
 func TestFullPath(t *testing.T) {

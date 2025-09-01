@@ -14,6 +14,8 @@ sortType = 1 倒序
 eachMap      ->  待遍历的map
 eachFunc     ->  map遍历接收，入参应该符合map的key和value
 */
+
+// SortMapKey 排序
 func SortMapKey(eachMap interface{}, eachFunc interface{}, sortType int) {
 	eachMapValue := reflect.ValueOf(eachMap)
 	eachFuncValue := reflect.ValueOf(eachFunc)
@@ -91,7 +93,7 @@ func SortMapKey(eachMap interface{}, eachFunc interface{}, sortType int) {
 	return
 }
 
-// interface 转 map[string][]string
+// ConvertToMapStringSlice interface 转 map[string][]string
 func ConvertToMapStringSlice(in interface{}) (map[string][]string, error) {
 	res := make(map[string][]string)
 	m, ok := in.(map[string]interface{})

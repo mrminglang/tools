@@ -1,11 +1,12 @@
 package checks_test
 
 import (
+	"testing"
+
 	"github.com/mrminglang/tools/checks"
 	"github.com/mrminglang/tools/dumps"
-	"github.com/srlemon/gen-id"
+	genid "github.com/srlemon/gen-id"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestMain(m *testing.M) {

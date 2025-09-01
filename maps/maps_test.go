@@ -2,10 +2,11 @@ package maps_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/maps"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestEachMap(t *testing.T) {

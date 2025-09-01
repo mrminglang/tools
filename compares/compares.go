@@ -2,7 +2,7 @@ package compares
 
 import "strings"
 
-// 获取比较符号
+// GetCompares 获取比较符号
 func GetCompares(str string) string {
 	str = strings.ReplaceAll(str, "$eq", "=")   // 等于
 	str = strings.ReplaceAll(str, "$ne", "!=")  // 不等于

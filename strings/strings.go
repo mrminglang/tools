@@ -3,13 +3,14 @@ package strings
 import (
 	"bytes"
 	"fmt"
-	"github.com/mrminglang/tools/checks/regex"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
 	"unicode"
+
+	"github.com/mrminglang/tools/checks/regex"
 )
 
 // TrimStr 去除字符中一些前后字符

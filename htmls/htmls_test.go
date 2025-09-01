@@ -1,9 +1,10 @@
 package htmls_test
 
 import (
+	"testing"
+
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/htmls"
-	"testing"
 )
 
 func TestConvertToText(t *testing.T) {

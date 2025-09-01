@@ -2,10 +2,11 @@ package uuids_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/uuids"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestUuid(t *testing.T) {

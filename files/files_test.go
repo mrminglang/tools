@@ -1,12 +1,13 @@
 package files_test
 
 import (
+	"testing"
+
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/files"
 	"github.com/mrminglang/tools/paths"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestIsFileExist(t *testing.T) {

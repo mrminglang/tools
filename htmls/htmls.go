@@ -1,11 +1,12 @@
 package htmls
 
 import (
-	"golang.org/x/net/html"
 	"strings"
+
+	"golang.org/x/net/html"
 )
 
-// HTML富文本转纯文本
+// ConvertToText HTML富文本转纯文本
 func ConvertToText(htmlContent string) string {
 	if htmlContent == "" {
 		return htmlContent

@@ -1,12 +1,13 @@
 package strings_test
 
 import (
-	"github.com/mrminglang/tools/dumps"
-	strings2 "github.com/mrminglang/tools/strings"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"strconv"
 	"testing"
+
+	"github.com/mrminglang/tools/dumps"
+	strings2 "github.com/mrminglang/tools/strings"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestTrimStr(t *testing.T) {

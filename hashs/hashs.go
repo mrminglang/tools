@@ -4,9 +4,11 @@ import (
 	"crypto/md5"
 	"crypto/sha1"
 	"encoding/hex"
+	"fmt"
+	"strings"
 )
 
-// 对字符串进行SHA1签名
+// GenerateSHA1Signature 对字符串进行SHA1签名
 func GenerateSHA1Signature(input string) string {
 	// Convert the input string to bytes
 	data := []byte(input)
@@ -31,4 +33,17 @@ func MD5Hash(str string) string {
 	hash := md5.Sum([]byte(str))
 	md5Str := hex.EncodeToString(hash[:])
 	return md5Str
+}
+
+// GetAuthData 生成认证数据签名
+func GetAuthData(loginId, secret string) string {
+	data := fmt.Sprintf("loginId%s%s", loginId, secret)
+	return strings.ToUpper(Sha1Hex(data))
+}
+
+// Sha1Hex 计算字符串的 SHA1 哈希值并返回十六进制表示
+func Sha1Hex(s string) string {
+	hasher := sha1.New()
+	hasher.Write([]byte(s))
+	return fmt.Sprintf("%x", hasher.Sum(nil))
 }

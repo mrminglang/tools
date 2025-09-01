@@ -2,33 +2,42 @@ package httpcall
 
 import (
 	"compress/gzip"
+	"crypto/tls"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"io"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/sirupsen/logrus"
 )
 
-//Get 发起一个Get请求
+// SkipVerifyTLS 设置是否跳过TLS证书验证
+var SkipVerifyTLS = false
+
+// Get 发起一个Get请求
 func Get(url string) (string, error) {
 	body := new(io.Reader)
 	logrus.Infoln("Get url::", url)
-	return do(http.MethodGet, url, "", *body)
+	return do(http.MethodGet, url, nil, *body)
 }
 
-//Post 发起一个Post请求
-func Post(url, contentType string, body io.Reader) (string, error) {
-	logrus.Infoln(fmt.Sprintf("Post url:: %s contentType::%s", url, contentType))
+// Post 发起一个Post请求
+func Post(url string, headers map[string]string, body io.Reader) (string, error) {
+	logrus.Infoln(fmt.Sprintf("Post url:: %s headers::%v", url, headers))
 	logrus.Infoln("Post body::", body)
-	return do(http.MethodPost, url, contentType, body)
+	return do(http.MethodPost, url, headers, body)
 }
 
 // 远程请求
-func do(method, url, contentType string, reqBody io.Reader) (string, error) {
-	if contentType == "" {
-		contentType = "application/json"
-	}
+func do(method, url string, headers map[string]string, reqBody io.Reader) (string, error) {
 	logrus.Infoln("do creating request start......")
+	if headers == nil {
+		headers = make(map[string]string)
+	}
+	if len(headers) == 0 {
+		headers["Content-Type"] = "application/json"
+	}
+
 	// 准备请求正文
 	req, err := http.NewRequest(method, url, reqBody)
 	if err != nil {
@@ -36,9 +45,17 @@ func do(method, url, contentType string, reqBody io.Reader) (string, error) {
 		return "", err
 	}
 	// 设置“内容类型”标头
-	req.Header.Add("Content-Type", contentType)
-	// Make the request
+	for key, value := range headers {
+		req.Header.Add(key, value)
+	}
+
+	// 创建HTTP客户端，支持跳过TLS验证
 	client := &http.Client{}
+	if SkipVerifyTLS {
+		client.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+	}
 	logrus.Infoln("do req::", req)
 	rsp, err := client.Do(req)
 	if err != nil {

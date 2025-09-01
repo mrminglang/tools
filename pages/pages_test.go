@@ -1,9 +1,10 @@
 package pages_test
 
 import (
+	"testing"
+
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/pages"
-	"testing"
 )
 
 func TestGetPages(t *testing.T) {
