@@ -100,3 +100,16 @@ func ConvertToSeconds(timestamp int64) int64 {
 
 	return timestamp // 否则返回原值
 }
+
+func TestDisplay(t *testing.T) {
+	req := struct {
+		Name string `json:"name"`
+		Age  int    `json:"age"`
+	}{
+		Name: "mm",
+		Age:  18,
+	}
+
+	dumps.Dump(strings2.Display(req))
+
+}

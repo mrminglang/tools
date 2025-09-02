@@ -2,6 +2,7 @@ package strings
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"reflect"
 	"regexp"
@@ -218,4 +219,10 @@ func StrUrlReplace(content, label string) string {
 // IsBoolType 判断是否为布尔类型
 func IsBoolType(str interface{}) bool {
 	return reflect.TypeOf(str).Kind() == reflect.Bool
+}
+
+// Display 将结构显示为字符串
+func Display(v interface{}) string {
+	data, _ := json.Marshal(v)
+	return string(data)
 }
