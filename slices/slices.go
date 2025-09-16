@@ -35,6 +35,8 @@ func IsExistValue(value interface{}, target interface{}) (bool, error) {
 		}
 
 		// todo isExist map value
+	default:
+		break
 	}
 
 	return false, errors.New("not in array")
@@ -100,10 +102,10 @@ func SliceToSqlString(slice []string) string {
 	return str
 }
 
-// RemoveStrSilceDuplicates 移除切片重复元素
-func RemoveStrSilceDuplicates(slice []string) []string {
+// RemoveStrSliceDuplicates 移除切片重复元素
+func RemoveStrSliceDuplicates(slice []string) []string {
 	encountered := map[string]struct{}{}
-	result := []string{}
+	var result []string
 
 	for _, v := range slice {
 		if _, has := encountered[v]; !has {
@@ -115,8 +117,8 @@ func RemoveStrSilceDuplicates(slice []string) []string {
 	return result
 }
 
-// []string 转 []interface
-func StrSilce2InterfaceSilce(strArr []string) []interface{} {
+// StrSlice2InterfaceSlice []string 转 []interface
+func StrSlice2InterfaceSlice(strArr []string) []interface{} {
 	interfaceArr := make([]interface{}, len(strArr))
 
 	for i, v := range strArr {
@@ -126,7 +128,7 @@ func StrSilce2InterfaceSilce(strArr []string) []interface{} {
 	return interfaceArr
 }
 
-// 判断字符串类型数组的某个元素值是否存在(二分法)
+// InArray 判断字符串类型数组的某个元素值是否存在(二分法)
 func InArray(array []string, target string) bool {
 	sort.Strings(array)
 	index := sort.SearchStrings(array, target)

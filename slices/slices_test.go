@@ -53,12 +53,12 @@ func TestRemoveIntSlice(t *testing.T) {
 func TestRemoveStrSilceDuplicates(t *testing.T) {
 	str := []string{"apple", "banana", "apple", "kiwi", "banana", "orange"}
 
-	dumps.Dump(slices.RemoveStrSilceDuplicates(str))
+	dumps.Dump(slices.RemoveStrSliceDuplicates(str))
 }
 
 func TestStrSilce2InterfaceSilce(t *testing.T) {
 	strArr := []string{"apple", "banana", "orange"}
-	dumps.Dump(slices.StrSilce2InterfaceSilce(strArr))
+	dumps.Dump(slices.StrSlice2InterfaceSlice(strArr))
 }
 
 func TestInArray(t *testing.T) {
