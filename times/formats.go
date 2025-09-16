@@ -55,3 +55,6 @@ const (
 	HmsFormat  = "15:04:05" // 时:分:秒
 	HmsFormat2 = "15时4分5秒"  // 时分秒
 )
+
+// FormatMap 格式化时间
+var FormatMap = map[string]string{"YY": "06", "YYYY": "2006", "MM": "01", "DD": "02", "HH": "15", "mm": "04", "ss": "05"}

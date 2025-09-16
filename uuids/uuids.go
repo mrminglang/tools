@@ -4,11 +4,16 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"fmt"
+	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/bwmarrin/snowflake"
 	"github.com/google/uuid"
+	"github.com/mrminglang/tools/times"
+
+	rand2 "math/rand"
 )
 
 // GenerateUuid 雪花算法生成19位唯一id
@@ -26,8 +31,8 @@ func Uuid() string {
 	return uuid.New().String()
 }
 
-// GetRandowUUID 返回无连接符的UUID
-func GetRandowUUID() string {
+// GetRandomUUID 返回无连接符的UUID
+func GetRandomUUID() string {
 	newUUID, err := uuid.NewRandom()
 	if err != nil {
 		return ""
@@ -67,4 +72,51 @@ func GenerateNonceStr(length int) (string, error) {
 	}
 
 	return nonceStr, nil
+}
+
+// 生成随机数去重结构
+var genUidDupLock sync.Mutex
+var genUidDup = struct {
+	TimeKey string
+	DupMap  map[string]struct{}
+}{DupMap: make(map[string]struct{})}
+
+// GetSimpleRandId 获取简单的uid 使用时间戳
+func GetSimpleRandId() string {
+	now := time.Now()
+	return GetSimpleRandIdWithTime(now)
+}
+
+// GetSimpleRandIdWithTime 使用指定时间生成简单的uid
+func GetSimpleRandIdWithTime(now time.Time) string {
+	genId := func(now time.Time) (id string, timeKey string) {
+		date := now.Format(times.YYMMDD)
+		daySecond := strconv.Itoa(1e5 + now.Hour()*3600 + now.Minute()*60 + now.Second())[1:]
+		randNum := strconv.Itoa(1e5 + rand2.Intn(99999))[1:]
+		return date + daySecond + randNum, date + daySecond
+	}
+
+	//是否重复 控制循环
+	isDup, resId := true, ""
+	for isDup {
+		id, timeKey := genId(now)
+		genUidDupLock.Lock()
+		if genUidDup.TimeKey != timeKey {
+			//新的一秒 重置
+			genUidDup.TimeKey = timeKey
+			genUidDup.DupMap = make(map[string]struct{})
+		}
+		if _, ok := genUidDup.DupMap[id]; !ok {
+			//生成的id不存在 未重复
+			genUidDup.DupMap[id] = struct{}{}
+			isDup = false
+			resId = id
+		} else {
+			//重复 重试
+			isDup = true
+		}
+		genUidDupLock.Unlock()
+	}
+
+	return resId
 }

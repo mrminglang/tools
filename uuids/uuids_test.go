@@ -3,8 +3,10 @@ package uuids_test
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/mrminglang/tools/dumps"
+	"github.com/mrminglang/tools/times"
 	"github.com/mrminglang/tools/uuids"
 	"github.com/stretchr/testify/assert"
 )
@@ -13,9 +15,9 @@ func TestUuid(t *testing.T) {
 	dumps.Dump(uuids.Uuid())
 }
 
-func TestGetRandowUUID(t *testing.T) {
+func TestGetRandomUUID(t *testing.T) {
 	for i := 0; i < 1000; i++ {
-		uuid := uuids.GetRandowUUID()
+		uuid := uuids.GetRandomUUID()
 		fmt.Println(uuid)
 		assert.NotEmpty(t, uuid)
 	}
@@ -46,4 +48,13 @@ func TestGenerateNonceStr(t *testing.T) {
 	}
 
 	dumps.Dump(str)
+}
+
+func TestGetSimpleRandId(t *testing.T) {
+	dumps.Dump(uuids.GetSimpleRandId())
+}
+
+func TestGetSimpleRandIdWithTime(t *testing.T) {
+	now, _ := time.Parse(times.TimeFormat, "2025-09-15 23:59:59")
+	dumps.Dump(uuids.GetSimpleRandIdWithTime(now))
 }

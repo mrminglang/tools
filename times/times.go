@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/jinzhu/now"
@@ -198,4 +199,16 @@ func ConvertToSeconds(timestamp int64) int64 {
 	}
 
 	return timestamp // 否则返回原值
+}
+
+// GetFormatTimeStr 获取格式化时间字符串
+func GetFormatTimeStr(t time.Time, format string) string {
+	realFormat := TimeFormat
+	if len(format) > 0 {
+		realFormat = format
+		for k, v := range FormatMap {
+			realFormat = strings.ReplaceAll(realFormat, k, v)
+		}
+	}
+	return t.Format(realFormat)
 }

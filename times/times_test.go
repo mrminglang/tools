@@ -3,6 +3,7 @@ package times_test
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/times"
@@ -116,4 +117,9 @@ func TestConvertTimestamp(t *testing.T) {
 
 func TestConvertToSeconds(t *testing.T) {
 	dumps.Dump(times.ConvertToSeconds(1633036800000))
+}
+
+func TestGetFormatTimeStr(t *testing.T) {
+	dumps.Dump(times.GetFormatTimeStr(time.Now(), ""))
+	dumps.Dump(times.GetFormatTimeStr(time.Now(), times.YYYYMMDD))
 }
