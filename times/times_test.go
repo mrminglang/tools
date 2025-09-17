@@ -123,3 +123,12 @@ func TestGetFormatTimeStr(t *testing.T) {
 	dumps.Dump(times.GetFormatTimeStr(time.Now(), ""))
 	dumps.Dump(times.GetFormatTimeStr(time.Now(), times.YYYYMMDD))
 }
+
+func TestFindLaterTime(t *testing.T) {
+	laterTime, err := times.FindLaterTime("2025-09-10 15:05:00", "2025-09-10 15:01:00", times.TimeFormat)
+	if err != nil {
+		assert.Error(t, err)
+		return
+	}
+	dumps.Dump(laterTime)
+}

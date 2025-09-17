@@ -212,3 +212,22 @@ func GetFormatTimeStr(t time.Time, format string) string {
 	}
 	return t.Format(realFormat)
 }
+
+// FindLaterTime 找到时间靠后的字符串
+func FindLaterTime(timeStr1, timeStr2, format string) (string, error) {
+	// 将字符串解析为时间对象
+	time1, err1 := time.Parse(format, timeStr1)
+	time2, err2 := time.Parse(format, timeStr2)
+
+	// 检查解析是否成功
+	if err1 != nil || err2 != nil {
+		return "", errors.New(fmt.Sprintf("日期解析失败: %v, %v", err1, err2))
+	}
+
+	// 比较时间对象
+	if time1.After(time2) {
+		return timeStr1, nil
+	}
+
+	return timeStr2, nil
+}

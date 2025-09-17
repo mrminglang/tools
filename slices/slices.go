@@ -138,3 +138,29 @@ func InArray(array []string, target string) bool {
 	}
 	return false
 }
+
+// GetSliceIntersection 求两个字符串切片的交集
+func GetSliceIntersection(lst1, lst2 []string) []string {
+	var smaller, larger []string
+	if len(lst1) < len(lst2) {
+		smaller, larger = lst1, lst2
+	} else {
+		smaller, larger = lst2, lst1
+	}
+
+	// 较小的切片构建 map 以节省空间
+	set := make(map[string]bool, len(smaller))
+	for _, v := range smaller {
+		set[v] = true
+	}
+
+	// 遍历较大切片查找交集
+	res := make([]string, 0)
+	for _, v := range larger {
+		if set[v] {
+			res = append(res, v)
+			delete(set, v) // 避免重复添加
+		}
+	}
+	return res
+}

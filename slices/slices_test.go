@@ -50,13 +50,13 @@ func TestRemoveIntSlice(t *testing.T) {
 	dumps.Dump(b)
 }
 
-func TestRemoveStrSilceDuplicates(t *testing.T) {
+func TestRemoveStrSliceDuplicates(t *testing.T) {
 	str := []string{"apple", "banana", "apple", "kiwi", "banana", "orange"}
 
 	dumps.Dump(slices.RemoveStrSliceDuplicates(str))
 }
 
-func TestStrSilce2InterfaceSilce(t *testing.T) {
+func TestStrSlice2InterfaceSlice(t *testing.T) {
 	strArr := []string{"apple", "banana", "orange"}
 	dumps.Dump(slices.StrSlice2InterfaceSlice(strArr))
 }
@@ -65,4 +65,10 @@ func TestInArray(t *testing.T) {
 	array := []string{"2258", "2259", "2260"}
 	target := "102259"
 	dumps.Dump(slices.InArray(array, target))
+}
+
+func TestGetSliceIntersection(t *testing.T) {
+	lst1 := []string{"aaa", "bbb", "ccc", "ddd"}
+	lst2 := []string{"bbb", "ddd", "ccc", "eee"}
+	dumps.Dump(slices.GetSliceIntersection(lst1, lst2))
 }
