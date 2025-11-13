@@ -231,3 +231,8 @@ func FindLaterTime(timeStr1, timeStr2, format string) (string, error) {
 
 	return timeStr2, nil
 }
+
+// Int64ToTime 将int64转time.Time
+func Int64ToTime(t int64) time.Time {
+	return time.Unix(int64(t)/1000, int64(t)%1000*1000000)
+}

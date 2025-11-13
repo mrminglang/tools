@@ -132,3 +132,7 @@ func TestFindLaterTime(t *testing.T) {
 	}
 	dumps.Dump(laterTime)
 }
+
+func TestInt64ToTime(t *testing.T) {
+	dumps.Dump(times.Int64ToTime(1749983417326))
+}
