@@ -52,14 +52,21 @@ func TestGetStartTime(t *testing.T) {
 	dumps.Dump(times.GetStartTime("20230418", times.YYYYMMDD))
 }
 
-func TestGetEndtTime(t *testing.T) {
+func TestGetEndTime(t *testing.T) {
 	dumps.Dump(times.GetEndTime("20230418", times.YYYYMMDD))
 }
 
 func TestGenerateYearMonthIds(t *testing.T) {
-	start := "202303"
+	start := "202506"
 	layout := times.YYYYMM
 	yearMonthIds := times.GenerateYearMonthIds(start, layout)
+	fmt.Println(yearMonthIds)
+}
+
+func TestGenerateYearMonthDayIds(t *testing.T) {
+	start := "20250601"
+	layout := times.YYYYMMDD
+	yearMonthIds := times.GenerateYearMonthDayIds(start, layout)
 	fmt.Println(yearMonthIds)
 }
 

@@ -80,6 +80,20 @@ func GenerateYearMonthIds(timeStr string, layout string) []string {
 	return result
 }
 
+// GenerateYearMonthDayIds 获取指定时间到当前时间的年月日IDs,如20230301 返回["20230301","20230402"]
+func GenerateYearMonthDayIds(timeStr string, layout string) []string {
+	var result []string
+	t, err := time.Parse(layout, timeStr)
+	if err != nil {
+		return result
+	}
+	for t.Before(time.Now()) {
+		result = append(result, t.Format(layout))
+		t = t.AddDate(0, 0, 1)
+	}
+	return result
+}
+
 // GetYesterday 获取昨天的时间
 func GetYesterday(layout string) string {
 	// 获取当前时间
