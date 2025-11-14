@@ -12,6 +12,7 @@ import (
 	"unicode"
 
 	"github.com/mrminglang/tools/checks/regex"
+	"github.com/mrminglang/tools/times"
 )
 
 // TrimStr 去除字符中一些前后字符
@@ -225,4 +226,33 @@ func IsBoolType(str interface{}) bool {
 func Display(v interface{}) string {
 	data, _ := json.Marshal(v)
 	return string(data)
+}
+
+// GetTaskTableSuffix 依据TaskId获取分表后缀
+func GetTaskTableSuffix(taskId, mod string, isFront bool) (suffix string) {
+	//默认返回当天的分表后缀
+	if mod == "D" {
+		suffix = time.Now().Format(times.YYYYMMDD)
+		//返回前面一天的分表后缀
+		if isFront {
+			suffix = time.Now().AddDate(0, 0, 1).Format(times.YYYYMMDD)
+		}
+		if taskId != "" {
+			suffix = "20" + taskId[0:6]
+		}
+	}
+
+	//默认返回当月的分表后缀
+	if mod == "M" {
+		suffix = time.Now().Format(times.YYYYMM)
+		//返回前一个月的分表后缀
+		if isFront {
+			suffix = time.Now().AddDate(0, 1, 0).Format(times.YYYYMM)
+		}
+		if taskId != "" {
+			suffix = "20" + taskId[0:4]
+		}
+	}
+
+	return
 }

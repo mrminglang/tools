@@ -120,3 +120,13 @@ func GetSimpleRandIdWithTime(now time.Time) string {
 
 	return resId
 }
+
+// GetTaskId 获取任务id
+func GetTaskId() string {
+	return GetSimpleRandId()
+}
+
+// GetTaskIdWithTime 获取指定时间的任务id
+func GetTaskIdWithTime(now time.Time) string {
+	return GetSimpleRandIdWithTime(now)
+}
