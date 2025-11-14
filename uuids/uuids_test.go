@@ -58,3 +58,12 @@ func TestGetSimpleRandIdWithTime(t *testing.T) {
 	now, _ := time.Parse(times.TimeFormat, "2025-09-15 23:59:59")
 	dumps.Dump(uuids.GetSimpleRandIdWithTime(now))
 }
+
+func TestGetTaskId(t *testing.T) {
+	dumps.Dump(uuids.GetTaskId())
+}
+
+func TestGetTaskIdWithTime(t *testing.T) {
+	now, _ := time.Parse(times.TimeFormat, "2025-09-16 23:59:59")
+	dumps.Dump(uuids.GetTaskIdWithTime(now))
+}

@@ -256,3 +256,28 @@ func GetTaskTableSuffix(taskId, mod string, isFront bool) (suffix string) {
 
 	return
 }
+
+// GetTableSuffixByTimestamp 依据时间戳获取分表后缀
+func GetTableSuffixByTimestamp(timestamp int64, mod string) (suffix string) {
+	t := time.Unix(timestamp, 0)
+	switch mod {
+	case "M": // 按月分表
+		return fmt.Sprintf("%d%02d", t.Year(), t.Month())
+	case "D": // 按日分表
+		return fmt.Sprintf("%d%02d%02d", t.Year(), t.Month(), t.Day())
+	default: // 默认按月
+		return fmt.Sprintf("%d%02d", t.Year(), t.Month())
+	}
+}
+
+// GetTableSuffixByTimeDate 依据时间格式获取分表后缀
+func GetTableSuffixByTimeDate(t time.Time, mod string) (suffix string) {
+	switch mod {
+	case "M": // 按月分表
+		return fmt.Sprintf("%d%02d", t.Year(), t.Month())
+	case "D": // 按日分表
+		return fmt.Sprintf("%d%02d%02d", t.Year(), t.Month(), t.Day())
+	default: // 默认按月
+		return fmt.Sprintf("%d%02d", t.Year(), t.Month())
+	}
+}
