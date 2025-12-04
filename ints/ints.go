@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// InterfaceToInt32 converts an interface to an int32
 func InterfaceToInt32(v interface{}) (int32, error) {
 	switch val := v.(type) {
 	case int32:
@@ -34,4 +35,9 @@ func InterfaceToInt32(v interface{}) (int32, error) {
 	default:
 		return 0, fmt.Errorf("cannot convert %T to int32", v)
 	}
+}
+
+// Int32Ptr returns a pointer to an int32
+func Int32Ptr(v int32) *int32 {
+	return &v
 }

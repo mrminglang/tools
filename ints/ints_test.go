@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/mrminglang/tools/dumps"
 	"github.com/mrminglang/tools/ints"
 )
 
@@ -11,9 +12,9 @@ func TestInterfaceToInt32(t *testing.T) {
 	// 测试不同类型转换
 	values := []interface{}{
 		int32(123),
-		int(456),
+		456,
 		int64(789),
-		float64(100.0),
+		100.000000,
 		"1",
 	}
 
@@ -25,4 +26,8 @@ func TestInterfaceToInt32(t *testing.T) {
 			fmt.Printf("Converted %v to int32: %d\n", v, result)
 		}
 	}
+}
+
+func TestInt32Ptr(t *testing.T) {
+	dumps.Dump(ints.Int32Ptr(30))
 }
