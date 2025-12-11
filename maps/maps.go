@@ -94,9 +94,9 @@ func SortMapKey(eachMap interface{}, eachFunc interface{}, sortType int) {
 }
 
 // ConvertToMapStringSlice interface 转 map[string][]string
-func ConvertToMapStringSlice(in interface{}) (map[string][]string, error) {
+func ConvertToMapStringSlice(param interface{}) (map[string][]string, error) {
 	res := make(map[string][]string)
-	m, ok := in.(map[string]interface{})
+	m, ok := param.(map[string]interface{})
 	if !ok {
 		return res, errors.New("参数格式错误")
 	}
@@ -119,8 +119,59 @@ func ConvertToMapStringSlice(in interface{}) (map[string][]string, error) {
 				res[k] = subValue
 			}
 		default:
-			return res, fmt.Errorf("参数格式错误，键：%s，值：%v", k, v)
+			return res, errors.New(fmt.Sprintf("参数格式错误，键：%s，值：%v", k, v))
 		}
 	}
 	return res, nil
+}
+
+// ConvertToMapSliceString 将 interface{} 类型的模板参数转换为 []map[string]string 类型
+func ConvertToMapSliceString(param interface{}) (result []map[string]string, err error) {
+	if param == nil {
+		err = errors.New("参数不能为空")
+		return
+	}
+
+	switch p := param.(type) {
+	case map[string]string:
+		// 处理单个 map 对象
+		strMap := make(map[string]string)
+		for k, v := range p {
+			strMap[k] = fmt.Sprintf("%v", v)
+		}
+		result = append(result, strMap)
+	case map[string]interface{}:
+		// 处理单个 map 对象
+		strMap := make(map[string]string)
+		for k, v := range p {
+			strMap[k] = fmt.Sprintf("%v", v)
+		}
+		result = append(result, strMap)
+	case []map[string]interface{}:
+		// 处理 map 数组
+		for _, item := range p {
+			strMap := make(map[string]string)
+			for k, v := range item {
+				strMap[k] = fmt.Sprintf("%v", v)
+			}
+			result = append(result, strMap)
+		}
+	case []interface{}:
+		// 处理 interface{} 数组
+		for _, item := range p {
+			if mapItem, ok := item.(map[string]interface{}); ok {
+				strMap := make(map[string]string)
+				for k, v := range mapItem {
+					strMap[k] = fmt.Sprintf("%v", v)
+				}
+				result = append(result, strMap)
+			}
+		}
+	default:
+		// 不支持的类型，返回空结果
+		err = errors.New(fmt.Sprintf("不支持的参数类型"))
+		return
+	}
+
+	return
 }

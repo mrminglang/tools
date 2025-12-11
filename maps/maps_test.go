@@ -38,7 +38,6 @@ func TestConvertToMapStringSlice(t *testing.T) {
 	dumps.Dump(m)
 	if _, ok := m["class"].(interface{}); ok {
 		dumps.Dump(1111)
-		rsp := make(map[string][]string, 0)
 		rsp, err := maps.ConvertToMapStringSlice(m["class"])
 		if err != nil {
 			assert.Error(t, err)
@@ -47,4 +46,16 @@ func TestConvertToMapStringSlice(t *testing.T) {
 	} else {
 		dumps.Dump(2222)
 	}
+}
+
+func TestConvertToMapSliceString(t *testing.T) {
+	param := map[string]string{
+		"title":   "car1",
+		"content": "内容",
+	}
+	rsp, err := maps.ConvertToMapSliceString(param)
+	if err != nil {
+		assert.Error(t, err)
+	}
+	dumps.Dump(rsp)
 }
