@@ -96,7 +96,7 @@ func SaveDataAfterCreateTable[T any](tableName string, db *gorm.DB, data *T, dst
 			// 指数退避策略
 			time.Sleep(time.Duration(1<<i) * time.Second)
 		} else {
-			logger.Infof("{saveData2Db tableName::%s retry::%d data::%+v 保存表记录成功}", tableName, i, data)
+			logger.Infof("{saveData2Db tableName::%s retry::%d 保存表记录成功}", tableName, i)
 			return
 		}
 	}
@@ -135,7 +135,7 @@ func InsertDataAfterCreateTable[T any](tableName string, db *gorm.DB, data *T, d
 			// 指数退避策略
 			time.Sleep(time.Duration(1<<i) * time.Second)
 		} else {
-			logger.Infof("{insertData2Db tableName::%s retry::%d data::%+v 创建表记录成功}", tableName, i, data)
+			logger.Infof("{insertData2Db tableName::%s retry::%d 创建表记录成功}", tableName, i)
 			return
 		}
 
