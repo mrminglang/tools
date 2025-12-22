@@ -194,15 +194,15 @@ func RetryExecSql(db *gorm.DB, sql string, retry int32, logger *rogger.Logger) (
 	for i := int32(0); i <= retry; i++ {
 		// 如果是最后一次重试，返回错误
 		if i == retry {
-			logger.Errorf("{RetryExecSql sql::%s retry::%d 超过重试次数}", sql, retry)
+			logger.Errorf("{RetryExecSql sql::%s retry::%d 超过重试次数}", sql, i)
 			return errors.New("超过重试次数")
 		}
-
+		// 直接尝试执行语句
 		if err = db.Exec(sql).Error; err != nil {
-			logger.Errorf("{RetryExecSql sql::%s retry::%d 执行语句失败 err::%s}", sql, retry, err.Error())
+			logger.Errorf("{RetryExecSql sql::%s retry::%d 执行语句失败 err::%s}", sql, i, err.Error())
 			time.Sleep(time.Duration(1<<i) * time.Second)
 		} else {
-			logger.Infof("{RetryExecSql sql::%s retry::%d 执行语句成功}", sql, retry)
+			logger.Infof("{RetryExecSql sql::%s retry::%d 执行语句成功}", sql, i)
 			return
 		}
 	}
