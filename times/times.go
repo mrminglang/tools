@@ -269,3 +269,22 @@ func HHmmToTimestamp(timeStr, timeZone string) (int64, error) {
 	t, _ := time.ParseInLocation(YMDhmFormat, dateTimeStr, loc)
 	return t.Unix(), nil
 }
+
+func TimeRangeHHmmToTimestamp(begin, end, timeZone string) (int64, int64, error) {
+	var beginTime, endTime int64
+	var err error
+
+	if begin != "" {
+		beginTime, _ = HHmmToTimestamp(begin, timeZone)
+	}
+	if end != "" {
+		endTime, _ = HHmmToTimestamp(end, timeZone)
+	}
+
+	// 如果endTime小于beginTime，说明跨天（如22:00-06:00）
+	if beginTime > endTime {
+		endTime = endTime + 24*60*60 // 加24小时
+	}
+
+	return beginTime, endTime, err
+}

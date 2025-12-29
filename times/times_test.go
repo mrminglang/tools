@@ -161,3 +161,14 @@ func TestHHmmToTimestamp(t *testing.T) {
 
 	dumps.Dump(n2)
 }
+
+func TestTimeRangeHHmmToTimestamp(t *testing.T) {
+	beginTime, endTime, err := times.TimeRangeHHmmToTimestamp("09:00", "06:00", times.TimeZoneSH)
+	if err != nil {
+		assert.Error(t, err)
+		return
+	}
+
+	dumps.Dump(beginTime)
+	dumps.Dump(endTime)
+}
