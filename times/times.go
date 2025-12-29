@@ -250,3 +250,22 @@ func FindLaterTime(timeStr1, timeStr2, format string) (string, error) {
 func Int64ToTime(t int64) time.Time {
 	return time.Unix(int64(t)/1000, int64(t)%1000*1000000)
 }
+
+// HHmmToTimestamp 将HHmm格式的时间字符串转换为时间戳
+func HHmmToTimestamp(timeStr, timeZone string) (int64, error) {
+	// 获取指定时区
+	loc := time.Local
+	if timeZone != "" {
+		loc, _ = time.LoadLocation(timeZone)
+	}
+
+	// 获取当前日期
+	dateStr := time.Now().In(loc).Format(YMDFormat)
+
+	// 拼接完整的日期时间字符串
+	dateTimeStr := dateStr + " " + timeStr
+
+	// 解析完整的时间字符串
+	t, _ := time.ParseInLocation(YMDhmFormat, dateTimeStr, loc)
+	return t.Unix(), nil
+}

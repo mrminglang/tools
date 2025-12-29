@@ -143,3 +143,21 @@ func TestFindLaterTime(t *testing.T) {
 func TestInt64ToTime(t *testing.T) {
 	dumps.Dump(times.Int64ToTime(1749983417326))
 }
+
+func TestHHmmToTimestamp(t *testing.T) {
+	n, err := times.HHmmToTimestamp("09:00", times.TimeZoneSH)
+	if err != nil {
+		assert.Error(t, err)
+		return
+	}
+
+	dumps.Dump(n)
+
+	n2, err2 := times.HHmmToTimestamp("10:00", times.TimeZoneSH)
+	if err2 != nil {
+		assert.Error(t, err2)
+		return
+	}
+
+	dumps.Dump(n2)
+}

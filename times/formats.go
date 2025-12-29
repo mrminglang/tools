@@ -54,6 +54,10 @@ const (
 	HHmmss     = "150405"   // 时分秒
 	HmsFormat  = "15:04:05" // 时:分:秒
 	HmsFormat2 = "15时4分5秒"  // 时分秒
+
+	HHmm      = "1504"  // 时分
+	HmFormat  = "15:04" // 时:分
+	HmFormat2 = "15时4分" // 时分
 )
 
 // FormatMap 格式化时间
