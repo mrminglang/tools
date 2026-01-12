@@ -67,3 +67,8 @@ func TestGetTaskIdWithTime(t *testing.T) {
 	now, _ := time.Parse(times.TimeFormat, "2025-09-16 23:59:59")
 	dumps.Dump(uuids.GetTaskIdWithTime(now))
 }
+
+func TestIsTaskID(t *testing.T) {
+	taskID := "2506156782133311"
+	dumps.Dump(uuids.IsTaskID(taskID))
+}

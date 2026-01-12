@@ -130,3 +130,20 @@ func GetTaskId() string {
 func GetTaskIdWithTime(now time.Time) string {
 	return GetSimpleRandIdWithTime(now)
 }
+
+// IsTaskID 是否是任务ID
+func IsTaskID(taskID string) bool {
+	if len(taskID) != 16 {
+		return false
+	}
+	if _, err := time.Parse(times.YYMMDD, taskID[:6]); err != nil {
+		return false
+	}
+	for i := 0; i < len(taskID); i++ {
+		if taskID[i] < '0' || taskID[i] > '9' {
+			return false
+		}
+	}
+
+	return true
+}
