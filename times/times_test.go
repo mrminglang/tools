@@ -2,6 +2,7 @@ package times_test
 
 import (
 	"fmt"
+	"strconv"
 	"testing"
 	"time"
 
@@ -171,4 +172,12 @@ func TestTimeRangeHHmmToTimestamp(t *testing.T) {
 
 	dumps.Dump(beginTime)
 	dumps.Dump(endTime)
+}
+
+func TestParseTimeUnitSeconds(t *testing.T) {
+	dumps.Dump(times.ParseTimeUnitSeconds("h"))
+}
+
+func TestCalcTime(t *testing.T) {
+	dumps.Dump(times.CalcTime(time.Now(), strconv.Itoa(1), "d"))
 }

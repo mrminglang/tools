@@ -288,3 +288,38 @@ func TimeRangeHHmmToTimestamp(begin, end, timeZone string) (int64, int64, error)
 
 	return beginTime, endTime, err
 }
+
+// ParseTimeUnitSeconds 解析时间单位
+func ParseTimeUnitSeconds(unit string) int64 {
+	switch strings.ToLower(unit) {
+	case "s", "ss", "sec", "second", "seconds":
+		return 1
+	case "m", "mm", "min", "minute", "minutes":
+		return 60
+	case "h", "hh", "hour", "hours":
+		return 60 * 60
+	case "d", "D", "DD", "day", "days":
+		return 24 * 60 * 60
+	case "w", "W", "week", "weeks":
+		return 7 * 24 * 60 * 60
+	case "M", "MM", "month", "months":
+		return 30 * 24 * 60 * 60
+	case "Y", "YY", "YYYY", "year", "years":
+		return 365 * 24 * 60 * 60
+	default:
+		return 0
+	}
+}
+
+// CalcTime 计算时间
+func CalcTime(base time.Time, timeNum, timeUnit string) time.Time {
+	num, err := strconv.Atoi(timeNum)
+	if err != nil || num <= 0 {
+		return base
+	}
+	seconds := ParseTimeUnitSeconds(timeUnit)
+	if seconds <= 0 {
+		return base
+	}
+	return base.Add(time.Duration(int64(num) * seconds * int64(time.Second)))
+}
