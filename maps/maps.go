@@ -1,6 +1,7 @@
 package maps
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"reflect"
@@ -133,6 +134,22 @@ func ConvertToMapSliceString(param interface{}) (result []map[string]string, err
 	}
 
 	switch p := param.(type) {
+	case string:
+		if p == "" {
+			return
+		}
+		strMap := make(map[string]string)
+		if err = json.Unmarshal([]byte(p), &strMap); err == nil {
+			result = append(result, strMap)
+		}
+	case []byte:
+		if len(p) == 0 {
+			return
+		}
+		strMap := make(map[string]string)
+		if err = json.Unmarshal(p, &strMap); err == nil {
+			result = append(result, strMap)
+		}
 	case map[string]string:
 		// 处理单个 map 对象
 		strMap := make(map[string]string)
@@ -173,5 +190,67 @@ func ConvertToMapSliceString(param interface{}) (result []map[string]string, err
 		return
 	}
 
+	return
+}
+
+// ConvertToMapStringInterface 将 interface{} 类型的模板参数转换为 map[string]interface{} 类型
+func ConvertToMapStringInterface(param interface{}) (result map[string]interface{}, err error) {
+	if param == nil {
+		return
+	}
+
+	switch p := param.(type) {
+	case string:
+		if p == "" {
+			return
+		}
+		err = json.Unmarshal([]byte(p), &result)
+	case []byte:
+		if len(p) == 0 {
+			return
+		}
+		err = json.Unmarshal(p, &result)
+	case map[string]interface{}:
+		result = p
+	default:
+		// 不支持的类型，返回空结果
+		err = errors.New(fmt.Sprintf("不支持的参数类型"))
+	}
+
+	return
+}
+
+// ConvertToMapStringMap 将 interface{} 类型的模板参数转换为 []map[string]map[string]string 类型
+func ConvertToMapStringMap(param interface{}) (result map[string]map[string]string, err error) {
+	if param == nil {
+		return
+	}
+
+	switch p := param.(type) {
+	case string:
+		if p == "" {
+			return
+		}
+		err = json.Unmarshal([]byte(p), &result)
+	case []byte:
+		if len(p) == 0 {
+			return
+		}
+		err = json.Unmarshal(p, &result)
+	case map[string]interface{}:
+		result = make(map[string]map[string]string)
+		for k, v := range p {
+			if innerMap, ok := v.(map[string]interface{}); ok {
+				strMap := make(map[string]string)
+				for ik, iv := range innerMap {
+					strMap[ik] = fmt.Sprintf("%v", iv)
+				}
+				result[k] = strMap
+			}
+		}
+	default:
+		// 不支持的类型，返回空结果
+		err = errors.New(fmt.Sprintf("不支持的参数类型"))
+	}
 	return
 }
